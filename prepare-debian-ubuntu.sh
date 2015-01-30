@@ -29,6 +29,11 @@ ionicCi_install_requirements() {
 ionicCi_install_adt() {
   apt-get install --yes lib32z1 lib32stdc++6
   apt-get install --yes android-sdk
+  ANDROID_TOOLS=$(dirname $(which android))
+  ANDROID_HOME=$(dirname ${ANDROID_TOOLS})
+  export ANDROID_HOME
+  export PATH=${ANDROID_HOME}/platform-tools:${PATH}
+  export PATH=${ANDROID_TOOLS}:${PATH}
 }
 
 
