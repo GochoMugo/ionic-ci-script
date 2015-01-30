@@ -29,11 +29,6 @@ ionicCi_install_requirements() {
 ionicCi_install_adt() {
   apt-get install --yes lib32z1 lib32stdc++6
   apt-get install --yes android-sdk
-  ANDROID_TOOLS=$(dirname $(which android))
-  ANDROID_HOME=$(dirname ${ANDROID_TOOLS})
-  export ANDROID_HOME
-  export PATH=${ANDROID_HOME}/platform-tools:${PATH}
-  export PATH=${ANDROID_TOOLS}:${PATH}
 }
 
 
@@ -45,11 +40,28 @@ ionicCi_log() {
 }
 
 
-# starting build
-ionicCi_log "adding repositories"
-ionicCi_add_repos
-ionicCi_log "installing requirements"
-ionicCi_install_requirements
-ionicCi_log "installing Android Development Kit"
-ionicCi_install_adt
-ionicCi_log "environment ready for ionic building"
+# export environment variables
+ionicCi_export_vars() {
+  ANDROID_TOOLS=$(dirname $(which android))
+  ANDROID_HOME=$(dirname ${ANDROID_TOOLS})
+  export ANDROID_HOME
+  export PATH=${ANDROID_HOME}/platform-tools:${PATH}
+  export PATH=${ANDROID_TOOLS}:${PATH}
+}
+
+
+# processing options passed to script
+if [ ${1} == '--env' ] ; then
+  ionicCi_log "exporting variables to environment"
+  ionicCi_export_vars
+  ionicCi_log "done with exporting!"
+else
+  # starting build
+  ionicCi_log "adding repositories"
+  ionicCi_add_repos
+  ionicCi_log "installing requirements"
+  ionicCi_install_requirements
+  ionicCi_log "installing Android Development Kit"
+  ionicCi_install_adt
+  ionicCi_log "done with installing!"
+fi
