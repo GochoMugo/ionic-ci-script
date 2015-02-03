@@ -40,10 +40,8 @@ ionicCi_log() {
 
 # export environment variables
 ionicCi_export_vars() {
-  ANDROID_TOOLS=$(dirname $(which android))
-  export ANDROID_HOME=$(dirname ${ANDROID_TOOLS})
-  export PATH=${ANDROID_HOME}/platform-tools:${PATH}
-  export PATH=${ANDROID_TOOLS}:${PATH}
+  # for android sdk
+  source env.sh
 }
 
 
