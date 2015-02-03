@@ -26,7 +26,7 @@ ionicCi_install_requirements() {
 # install ADT
 ionicCi_install_adt() {
   wget https://raw.githubusercontent.com/GochoMugo/android-sdk-installer/master/android-sdk-installer.sh
-  sudo bash android-sdk-installer.sh --yes
+  sudo bash android-sdk-installer.sh --yes --no-color --dir=./android-sdk
 }
 
 
